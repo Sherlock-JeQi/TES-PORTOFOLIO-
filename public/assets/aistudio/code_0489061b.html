@@ -1,0 +1,754 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>JUHAIRI Q. — Shaping Tomorrow with Vision &amp; Action</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            space: {
+              950: '#030508',
+              900: '#070a10',
+              850: '#0b1019',
+              800: '#111724',
+              700: '#1a2336'
+            },
+            cyanGlow: '#00e5ff',
+            neonViolet: '#8a2be2'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    /* Deep space background elements */
+    body {
+      background-color: #030508;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Ambient sci-fi glow effects */
+    .bg-radial-vignette {
+      background: radial-gradient(circle at 50% 20%, rgba(0, 229, 255, 0.08) 0%, rgba(138, 43, 226, 0.04) 45%, rgba(3, 5, 8, 1) 85%);
+    }
+
+    .hero-space-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 229, 255, 0.15), rgba(3, 5, 8, 0) 70%);
+    }
+
+    /* Glassmorphism primitives */
+    .glass-panel {
+      background: rgba(13, 17, 26, 0.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-panel-glow {
+      background: rgba(13, 17, 26, 0.75);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 229, 255, 0.22);
+      box-shadow: 0 0 25px -8px rgba(0, 229, 255, 0.18);
+    }
+
+    .glass-panel:hover {
+      border-color: rgba(0, 229, 255, 0.35);
+      box-shadow: 0 0 35px -8px rgba(0, 229, 255, 0.25);
+    }
+
+    /* Sci-fi bracket lines */
+    .bracket-line {
+      position: relative;
+    }
+    .bracket-line::before, .bracket-line::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: rgba(0, 229, 255, 0.45);
+      pointer-events: none;
+    }
+    .bracket-tl::before { top: 0; left: 0; border-top: 1px solid rgba(0, 229, 255, 0.6); border-left: 1px solid rgba(0, 229, 255, 0.6); }
+    .bracket-tr::after { top: 0; right: 0; border-top: 1px solid rgba(0, 229, 255, 0.6); border-right: 1px solid rgba(0, 229, 255, 0.6); }
+    .bracket-bl::before { bottom: 0; left: 0; border-bottom: 1px solid rgba(0, 229, 255, 0.6); border-left: 1px solid rgba(0, 229, 255, 0.6); }
+    .bracket-br::after { bottom: 0; right: 0; border-bottom: 1px solid rgba(0, 229, 255, 0.6); border-right: 1px solid rgba(0, 229, 255, 0.6); }
+
+    /* Starfield canvas overlay */
+    #starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Custom subtle tech grid */
+    .tech-grid-bg {
+      background-size: 50px 50px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-space-950 text-slate-200 antialiased selection:bg-cyanGlow/20 selection:text-cyanGlow tech-grid-bg relative">
+<!-- Interactive Background Canvas -->
+<canvas id="starfield" width="1280" height="6654"></canvas>
+<div class="relative z-10 flex flex-col min-h-screen">
+<!-- BEGIN: MainHeader -->
+<header class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-5 transition-all duration-300" id="main-nav">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<!-- Brand & Availability Indicator -->
+<a class="flex items-center gap-3 px-4 py-2 rounded-full glass-panel border border-white/10 hover:border-cyanGlow/40 transition-colors group" href="#hero">
+<div class="relative flex items-center justify-center">
+<span class="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-cyanGlow opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-cyanGlow"></span>
+</div>
+<span class="font-display font-bold tracking-widest text-sm text-white group-hover:text-cyanGlow transition-colors">JUHAIRI Q.</span>
+<span class="hidden sm:inline-block font-mono text-[10px] text-slate-400 uppercase tracking-wider pl-2 border-l border-white/10">AVAILABLE</span>
+</a>
+<!-- Desktop Navigation Matrix -->
+<nav class="hidden md:flex items-center space-x-1 glass-panel px-4 py-1.5 rounded-full border border-white/10 shadow-2xl">
+<a class="px-4 py-1.5 text-xs font-mono tracking-wider text-slate-300 hover:text-cyanGlow transition-colors" href="#about">ABOUT</a>
+<a class="px-4 py-1.5 text-xs font-mono tracking-wider text-slate-300 hover:text-cyanGlow transition-colors" href="#experience">EXPERIENCE</a>
+<a class="px-4 py-1.5 text-xs font-mono tracking-wider text-slate-300 hover:text-cyanGlow transition-colors" href="#projects">PROJECTS</a>
+<a class="px-4 py-1.5 text-xs font-mono tracking-wider text-slate-300 hover:text-cyanGlow transition-colors" href="#capabilities">SKILLS</a>
+<a class="px-4 py-1.5 text-xs font-mono tracking-wider text-slate-300 hover:text-cyanGlow transition-colors" href="#services">SERVICES</a>
+<a class="px-4 py-1.5 text-xs font-mono tracking-wider text-slate-300 hover:text-cyanGlow transition-colors" href="#contact">CONTACT</a>
+</nav>
+<!-- Call to Action Button -->
+<div class="flex items-center gap-3">
+<a class="px-5 py-2 rounded-full text-xs font-medium tracking-wide bg-white text-space-950 font-display font-semibold hover:bg-cyanGlow hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all duration-300 active:scale-95" href="#contact">
+            Start a Chat
+          </a>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<main class="flex-grow pt-24">
+<!-- BEGIN: HeroSection (Matching Reference https://lh3.googleusercontent.com/aida-public/AB6AXuC2PUQUOR_YbfJsTO0NmA_BaWS5oZGfMieTLo1I2vU_4w6Wijno_Lo_mIFVWjqLNTED41cHRloVdMZK7JVLWRoU-ElkRmFWGDTlEdAWWEv6IH6mBRI-1vjPC53MgBf-9scHZn1GNvkuF8a86891zMTCC5L0OmgWlWdP2ZCofLSnNSPaRHkFA3rFQR_6oyx3GMAYZK73R04xFRIMqMCjuhOsFAbOdpP_3JsSybcxRP-4-6TOBaYpH2u_fQ) -->
+<section class="relative min-h-[92vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden hero-space-glow" id="hero">
+<!-- Curved Sci-Fi Frame Overlay Lines -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30">
+<svg class="w-full h-full max-w-6xl max-h-[750px]" fill="none" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<!-- Sleek outer structural guides matching VEX UI -->
+<path d="M 50 150 L 250 150 C 320 150 350 80 420 80 L 1150 80" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"></path>
+<path d="M 50 650 L 250 650 C 320 650 350 720 420 720 L 1150 720" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"></path>
+<line stroke="rgba(0,229,255,0.12)" stroke-dasharray="4 6" stroke-width="1" x1="600" x2="600" y1="200" y2="600"></line>
+<!-- Glow accents -->
+<circle cx="250" cy="150" fill="#00e5ff" r="3"></circle>
+<circle cx="950" cy="80" fill="#00e5ff" r="3"></circle>
+</svg>
+</div>
+<div class="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center justify-center pt-8 pb-12">
+<!-- Pill Badge: Mission Status -->
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-cyanGlow/25 text-slate-300 text-xs font-mono tracking-wider mb-8 animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-cyanGlow"></span>
+            AVAILABLE FOR PMO &amp; EDU TECH COLLABORATIONS
+          </div>
+<!-- Main Hero Title -->
+<h1 class="text-4xl sm:text-6xl md:text-7xl font-bold font-display tracking-tight text-white mb-6 leading-[1.12]">PORTOFOLIO</h1>
+<!-- Hero Subheadline / Persona Pitch -->
+<p class="text-base sm:text-lg md:text-xl text-slate-400 font-sans max-w-2xl mx-auto leading-relaxed mb-10 font-normal">
+            We back visionaries and craft ventures that define what comes next. Juhairi Qushay — Enterprise PMO at PLN Icon Plus, IT Edu Content Creator (36.9K+), and Informatics Engineering Student.
+          </p>
+<!-- Dual Primary / Secondary CTA Buttons -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-16">
+<a class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-space-950 font-display font-medium text-sm tracking-wide hover:bg-cyanGlow hover:text-space-950 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]" href="#contact">
+              Start a Conversation
+            </a>
+<a class="w-full sm:w-auto px-8 py-3.5 rounded-full glass-panel text-white font-display font-medium text-sm tracking-wide border border-white/20 hover:border-cyanGlow hover:text-cyanGlow transition-all duration-300" href="#projects">
+              Explore Portfolio
+            </a>
+</div>
+<!-- Bottom Futuristic Status Bar Pill -->
+<div class="inline-flex items-center px-6 py-2.5 rounded-full glass-panel border border-white/10 text-slate-300 text-xs sm:text-sm font-sans tracking-wide shadow-lg">
+<span>Project Management</span>
+<span class="mx-3 text-cyanGlow">·</span>
+<span>IT Edu Content</span>
+<span class="mx-3 text-cyanGlow">·</span>
+<span>Software Architecture</span>
+</div>
+</div>
+<!-- Corner Geometric Sci-Fi Crosshairs -->
+<div class="absolute bottom-6 left-8 font-mono text-[10px] text-slate-600 hidden md:block">
+          SYS.LOC: IDN_JKT // LAT. -6.2088 // LONG. 106.8456
+        </div>
+<div class="absolute bottom-6 right-8 font-mono text-[10px] text-slate-600 hidden md:block">
+          ENGINE: HIGH-FIDELITY // PORTFOLIO V2.6
+        </div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: IdentityMatrix (Tri-Identity Persona Section) -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="about">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-white/10 pb-6">
+<div>
+<div class="text-xs font-mono tracking-widest text-cyanGlow uppercase mb-2">// 01. CORE IDENTITY</div>
+<h2 class="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight">The Tri-Persona Matrix</h2>
+</div>
+<p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0 font-sans">
+            Operating at the intersection of enterprise tech governance, viral digital education, and software development engineering.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1: Enterprise PMO -->
+<div class="glass-panel p-8 rounded-2xl relative group transition-all duration-300 hover:-translate-y-1">
+<div class="absolute top-6 right-6 font-mono text-xs px-2.5 py-1 rounded-full bg-cyanGlow/10 text-cyanGlow border border-cyanGlow/20">
+              Enterprise PMO
+            </div>
+<div class="w-12 h-12 rounded-xl bg-cyanGlow/10 border border-cyanGlow/20 flex items-center justify-center text-cyanGlow mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</div>
+<h3 class="text-xl font-display font-bold text-white mb-2">Project Management Officer</h3>
+<div class="text-xs font-mono text-slate-400 mb-4">PLN ICON PLUS · 2023 — PRESENT</div>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
+              Overseeing nation-wide smart grid initiatives, SCADA systems, and Advanced Metering Infrastructure (AMI). Directing project lifecycles, risk registers, and multi-stakeholder governance aligned with ITIL &amp; Agile standards.
+            </p>
+<div class="pt-4 border-t border-white/5 flex flex-wrap gap-2">
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">SCADA Deployment</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">AMI Governance</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Risk Assessment</span>
+</div>
+</div>
+<!-- Card 2: Edu Tech Creator -->
+<div class="glass-panel p-8 rounded-2xl relative group transition-all duration-300 hover:-translate-y-1">
+<div class="absolute top-6 right-6 font-mono text-xs px-2.5 py-1 rounded-full bg-cyanGlow/10 text-cyanGlow border border-cyanGlow/20">
+              Edu Tech &amp; Media
+            </div>
+<div class="w-12 h-12 rounded-xl bg-cyanGlow/10 border border-cyanGlow/20 flex items-center justify-center text-cyanGlow mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</div>
+<h3 class="text-xl font-display font-bold text-white mb-2">IT Edu Tech Creator</h3>
+<div class="text-xs font-mono text-slate-400 mb-4">36.9K+ COMMUNITY REACH · CANVA SQUAD</div>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
+              Empowering next-gen tech creators and university students through structured coding tutorials, productivity workflows, and tech career insights. Official Canva Squad Member and active Google Developer Groups (GDG) Speaker.
+            </p>
+<div class="pt-4 border-t border-white/5 flex flex-wrap gap-2">
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Viral Tech Media</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Public Speaking</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Dev Community</span>
+</div>
+</div>
+<!-- Card 3: Software Engineer -->
+<div class="glass-panel p-8 rounded-2xl relative group transition-all duration-300 hover:-translate-y-1">
+<div class="absolute top-6 right-6 font-mono text-xs px-2.5 py-1 rounded-full bg-cyanGlow/10 text-cyanGlow border border-cyanGlow/20">
+              Engineering
+            </div>
+<div class="w-12 h-12 rounded-xl bg-cyanGlow/10 border border-cyanGlow/20 flex items-center justify-center text-cyanGlow mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</div>
+<h3 class="text-xl font-display font-bold text-white mb-2">Informatics Engineering</h3>
+<div class="text-xs font-mono text-slate-400 mb-4">INSTITUT TEKNOLOGI PLN (IT PLN)</div>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
+              Conducting advanced research in Artificial Intelligence &amp; Computer Vision (Convolutional Neural Networks). Architecting production-grade web solutions and mentoring aspiring developers in foundational computer science.
+            </p>
+<div class="pt-4 border-t border-white/5 flex flex-wrap gap-2">
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">CNN / Deep Learning</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Full-Stack Dev</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">System Architecture</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: IdentityMatrix -->
+<!-- BEGIN: MetricsAndExperience -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="experience">
+<!-- High-Tech Metrics Counter Band -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+<div class="glass-panel p-6 rounded-xl border border-white/10 text-center">
+<div class="font-display text-4xl sm:text-5xl font-bold text-white mb-2 tracking-tight">3<span class="text-cyanGlow">+</span></div>
+<div class="text-xs font-mono uppercase tracking-wider text-slate-400">Years Enterprise PMO</div>
+</div>
+<div class="glass-panel p-6 rounded-xl border border-white/10 text-center">
+<div class="font-display text-4xl sm:text-5xl font-bold text-white mb-2 tracking-tight">36.9K<span class="text-cyanGlow">+</span></div>
+<div class="text-xs font-mono uppercase tracking-wider text-slate-400">Content Community</div>
+</div>
+<div class="glass-panel p-6 rounded-xl border border-white/10 text-center">
+<div class="font-display text-4xl sm:text-5xl font-bold text-white mb-2 tracking-tight">50<span class="text-cyanGlow">+</span></div>
+<div class="text-xs font-mono uppercase tracking-wider text-slate-400">Tech Events &amp; Workshops</div>
+</div>
+<div class="glass-panel p-6 rounded-xl border border-white/10 text-center">
+<div class="font-display text-4xl sm:text-5xl font-bold text-white mb-2 tracking-tight">2<span class="text-cyanGlow">+</span></div>
+<div class="text-xs font-mono uppercase tracking-wider text-slate-400">Ventures Founded</div>
+</div>
+</div>
+<!-- Experience Timeline -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-4">
+<div class="text-xs font-mono tracking-widest text-cyanGlow uppercase mb-2">// 02. CAREER TRAJECTORY</div>
+<h2 class="text-3xl font-display font-bold text-white tracking-tight mb-4">Enterprise &amp; Venture Experience</h2>
+<p class="text-slate-400 text-sm leading-relaxed">
+              Demonstrated track record of directing complex digital transformation projects at state-owned enterprises while simultaneously driving EdTech entrepreneurship.
+            </p>
+</div>
+<div class="lg:col-span-8 space-y-6">
+<!-- PLN Icon Plus Experience -->
+<div class="glass-panel p-6 sm:p-8 rounded-2xl relative">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+<div>
+<h3 class="text-xl font-display font-bold text-white">Project Management Officer (PMO)</h3>
+<div class="text-cyanGlow font-mono text-sm">PT PLN Icon Plus (Subholding PLN)</div>
+</div>
+<div class="font-mono text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 self-start sm:self-auto">
+                  2023 — Present
+                </div>
+</div>
+<ul class="space-y-2.5 text-sm text-slate-300 font-sans mb-4">
+<li class="flex items-start gap-2">
+<span class="text-cyanGlow mt-1">▹</span>
+<span>Managed end-to-end execution of smart energy telecommunication networks, fiber rollout, and AMI smart metering deployment across critical regional assets.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-cyanGlow mt-1">▹</span>
+<span>Coordinated cross-functional divisions including engineering, field technicians, vendors, and executive state stakeholders to ensure on-time delivery within SLA.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-cyanGlow mt-1">▹</span>
+<span>Instituted digitized tracking systems and risk mitigations, reducing reporting friction by over 30%.</span>
+</li>
+</ul>
+<div class="flex flex-wrap gap-2 pt-2 border-t border-white/5 font-mono text-xs text-slate-400">
+<span class="px-2 py-0.5 rounded bg-space-900 border border-white/10">Enterprise Governance</span>
+<span class="px-2 py-0.5 rounded bg-space-900 border border-white/10">ITILv4</span>
+<span class="px-2 py-0.5 rounded bg-space-900 border border-white/10">AMI Integration</span>
+</div>
+</div>
+<!-- Kidilent Experience -->
+<div class="glass-panel p-6 sm:p-8 rounded-2xl relative">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+<div>
+<h3 class="text-xl font-display font-bold text-white">Co-Founder &amp; Managing Director</h3>
+<div class="text-cyanGlow font-mono text-sm">Kidilent · CV. Kids Diverse Talent</div>
+</div>
+<div class="font-mono text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 self-start sm:self-auto">
+                  2021 — Present
+                </div>
+</div>
+<ul class="space-y-2.5 text-sm text-slate-300 font-sans mb-4">
+<li class="flex items-start gap-2">
+<span class="text-cyanGlow mt-1">▹</span>
+<span>Built an educational technology ecosystem for K-12 students covering visual programming (Scratch), 3D modeling (Tinkercad), robotics, and foundational web design.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-cyanGlow mt-1">▹</span>
+<span>Led business development, curriculum design, and operational growth resulting in over 1,500+ students trained nationwide.</span>
+</li>
+</ul>
+<div class="flex flex-wrap gap-2 pt-2 border-t border-white/5 font-mono text-xs text-slate-400">
+<span class="px-2 py-0.5 rounded bg-space-900 border border-white/10">EdTech Leadership</span>
+<span class="px-2 py-0.5 rounded bg-space-900 border border-white/10">Curriculum Architecture</span>
+<span class="px-2 py-0.5 rounded bg-space-900 border border-white/10">Bootcamps</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: MetricsAndExperience -->
+<!-- BEGIN: FeaturedProjects -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="projects">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-white/10 pb-6">
+<div>
+<div class="text-xs font-mono tracking-widest text-cyanGlow uppercase mb-2">// 03. VENTURES &amp; SYSTEMS</div>
+<h2 class="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight">Featured Engineering Projects</h2>
+</div>
+<p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0 font-sans">
+            A selection of software platforms, EdTech initiatives, and deep learning algorithms built for scale.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Project 1: Kidilent Platform -->
+<div class="glass-panel rounded-2xl p-6 sm:p-7 flex flex-col justify-between group hover:border-cyanGlow/40 transition-all duration-300">
+<div>
+<div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-4">
+<span>VENTURE / EDTECH</span>
+<span class="text-cyanGlow">LIVE PRODUCT</span>
+</div>
+<h3 class="text-xl font-display font-bold text-white group-hover:text-cyanGlow transition-colors mb-3">
+                Kidilent (Kids Diverse Talent)
+              </h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
+                Next-generation coding &amp; computational thinking academy for young students. Designed self-paced modules, live mentorship cohorts, and gamified project assessments in Scratch and Python.
+              </p>
+</div>
+<div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Education Technology</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Scratch &amp; Python</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">1.5K+ Alumni</span>
+</div>
+<a class="inline-flex items-center gap-2 text-xs font-mono text-cyanGlow hover:text-white transition-colors" href="#contact">
+                VIEW VENTURE DETAILS <span>↗</span>
+</a>
+</div>
+</div>
+<!-- Project 2: UCEABLE Custom Agency -->
+<div class="glass-panel rounded-2xl p-6 sm:p-7 flex flex-col justify-between group hover:border-cyanGlow/40 transition-all duration-300">
+<div>
+<div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-4">
+<span>SOFTWARE AGENCY</span>
+<span class="text-cyanGlow">CLIENT SOLUTIONS</span>
+</div>
+<h3 class="text-xl font-display font-bold text-white group-hover:text-cyanGlow transition-colors mb-3">
+                UCEABLE (UCE Absolute Tech)
+              </h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
+                Software development firm crafting tailored enterprise solutions, including LMS platforms like Learntera and online learning portals such as Active Mandarin.
+              </p>
+</div>
+<div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Web Architecture</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">LMS Implementation</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">B2B SaaS</span>
+</div>
+<a class="inline-flex items-center gap-2 text-xs font-mono text-cyanGlow hover:text-white transition-colors" href="#contact">
+                EXPLORE CLIENT WORK <span>↗</span>
+</a>
+</div>
+</div>
+<!-- Project 3: CNN Pest Detection -->
+<div class="glass-panel rounded-2xl p-6 sm:p-7 flex flex-col justify-between group hover:border-cyanGlow/40 transition-all duration-300">
+<div>
+<div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-4">
+<span>AI RESEARCH &amp; VISION</span>
+<span class="text-cyanGlow">ALGORITHM</span>
+</div>
+<h3 class="text-xl font-display font-bold text-white group-hover:text-cyanGlow transition-colors mb-3">
+                CNN Agricultural Pest Classifier
+              </h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
+                Deep Learning computer vision system utilizing Convolutional Neural Networks (CNN) with customized image preprocessing and augmentation to detect crop pests with high precision.
+              </p>
+</div>
+<div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Computer Vision</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">TensorFlow/Keras</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300">Research Paper</span>
+</div>
+<a class="inline-flex items-center gap-2 text-xs font-mono text-cyanGlow hover:text-white transition-colors" href="#services">
+                GET DATASET &amp; CODE <span>↗</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: FeaturedProjects -->
+<!-- BEGIN: CapabilitiesToolkit -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="capabilities">
+<div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10 relative overflow-hidden">
+<div class="max-w-2xl mb-12">
+<div class="text-xs font-mono tracking-widest text-cyanGlow uppercase mb-2">// 04. CAPABILITIES &amp; TOOLKIT</div>
+<h2 class="text-3xl font-display font-bold text-white tracking-tight">Structured Technical Competency</h2>
+<p class="text-slate-400 text-sm mt-3 font-sans">
+              A comprehensive toolset bridging leadership frameworks, content distribution engines, and software development pipelines.
+            </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Category 1 -->
+<div>
+<h4 class="font-mono text-xs uppercase tracking-wider text-cyanGlow mb-4 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-cyanGlow"></span>
+                PM &amp; Enterprise Governance
+              </h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Notion Workspace</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Trello Agile</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">MS Project</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">ITIL Fundamentals</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Risk Management</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">SLA Monitoring</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Stakeholder Alignment</span>
+</div>
+</div>
+<!-- Category 2 -->
+<div>
+<h4 class="font-mono text-xs uppercase tracking-wider text-cyanGlow mb-4 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-cyanGlow"></span>
+                Software &amp; AI Systems
+              </h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Python 3</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">TensorFlow / CNN</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">JavaScript / React</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Tailwind CSS</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Git &amp; GitHub</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">REST APIs</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">SQL &amp; Firebase</span>
+</div>
+</div>
+<!-- Category 3 -->
+<div>
+<h4 class="font-mono text-xs uppercase tracking-wider text-cyanGlow mb-4 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-cyanGlow"></span>
+                Media &amp; Public Delivery
+              </h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">CapCut Video Production</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Canva Verified Creator</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Figma UI/UX</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Technical Keynote Speaker</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">Event Host / MC</span>
+<span class="px-3 py-1.5 rounded-lg bg-space-900 border border-white/10 text-xs text-slate-200">EdTech Curriculum</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: CapabilitiesToolkit -->
+<!-- BEGIN: RecognitionAndHonors -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<div class="text-xs font-mono tracking-widest text-cyanGlow uppercase mb-2">// 05. RECOGNITION &amp; DELEGATIONS</div>
+<h2 class="text-3xl font-display font-bold text-white tracking-tight">Honors &amp; Global Summits</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-panel p-6 rounded-2xl border border-white/10 hover:border-cyanGlow/30 transition-colors">
+<div class="text-xs font-mono text-cyanGlow mb-2">INTERNATIONAL DELEGATE</div>
+<h4 class="text-lg font-display font-bold text-white mb-2">Google Online Communities Summit</h4>
+<p class="text-xs font-mono text-slate-400 mb-3">Singapore HQ · Regional Representative</p>
+<p class="text-slate-300 text-xs leading-relaxed font-sans">
+              Selected among top developer community leads in Southeast Asia to collaborate on developer advocacy, builder engagement, and AI enablement strategies.
+            </p>
+</div>
+<div class="glass-panel p-6 rounded-2xl border border-white/10 hover:border-cyanGlow/30 transition-colors">
+<div class="text-xs font-mono text-cyanGlow mb-2">COMMUNITY LEADERSHIP</div>
+<h4 class="text-lg font-display font-bold text-white mb-2">Official Watch Party Host</h4>
+<p class="text-xs font-mono text-slate-400 mb-3">Google I/O Regional Extended</p>
+<p class="text-slate-300 text-xs leading-relaxed font-sans">
+              Convened and hosted 200+ engineers, students, and tech enthusiasts to unpack Google's keynote announcements in generative AI and cloud infrastructure.
+            </p>
+</div>
+<div class="glass-panel p-6 rounded-2xl border border-white/10 hover:border-cyanGlow/30 transition-colors">
+<div class="text-xs font-mono text-cyanGlow mb-2">CREATIVE FELLOWSHIP</div>
+<h4 class="text-lg font-display font-bold text-white mb-2">Canva Squad Community Lead</h4>
+<p class="text-xs font-mono text-slate-400 mb-3">Canva Indonesia Chapter</p>
+<p class="text-slate-300 text-xs leading-relaxed font-sans">
+              Driving design literacy and visual storytelling workshops for aspiring digital entrepreneurs and campus organizations across Indonesia.
+            </p>
+</div>
+</div>
+<!-- Ecosystem Partners Strip -->
+<div class="mt-16 pt-10 border-t border-white/10">
+<div class="text-center text-xs font-mono uppercase tracking-widest text-slate-500 mb-6">Recognized &amp; Supported By Tech Ecosystems</div>
+<div class="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-70">
+<span class="font-display font-bold tracking-wider text-slate-300 text-lg hover:text-cyanGlow transition-colors">AWS COMMUNITY</span>
+<span class="font-display font-bold tracking-wider text-slate-300 text-lg hover:text-cyanGlow transition-colors">GOOGLE DEV GROUPS</span>
+<span class="font-display font-bold tracking-wider text-slate-300 text-lg hover:text-cyanGlow transition-colors">PLN ICON PLUS</span>
+<span class="font-display font-bold tracking-wider text-slate-300 text-lg hover:text-cyanGlow transition-colors">CANVA SQUAD</span>
+<span class="font-display font-bold tracking-wider text-slate-300 text-lg hover:text-cyanGlow transition-colors">IDCLOUDHOST</span>
+</div>
+</div>
+</section>
+<!-- END: RecognitionAndHonors -->
+<!-- BEGIN: DigitalProductsAndServices -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="services">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-white/10 pb-6">
+<div>
+<div class="text-xs font-mono tracking-widest text-cyanGlow uppercase mb-2">// 06. SERVICES &amp; DIGITAL ASSETS</div>
+<h2 class="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight">Collaboration &amp; Products</h2>
+</div>
+<p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0 font-sans">
+            Verified turnkey datasets, technical advisory, and high-impact tech event speaking packages.
+          </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Product Card: CNN Thesis Code & Dataset -->
+<div class="glass-panel p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-mono px-3 py-1 rounded-full bg-cyanGlow/10 text-cyanGlow border border-cyanGlow/20">DIGITAL CODEBASE</span>
+<span class="font-mono text-lg font-bold text-white">IDR 80K — 150K</span>
+</div>
+<h3 class="text-2xl font-display font-bold text-white mb-3">CNN Pest Classification Template &amp; Dataset</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
+                Full research-ready Jupyter notebook containing CNN pipeline, dataset preprocessing scripts, hyperparameter configuration, and confusion matrix visualizer. Ideal for Informatics theses and machine learning coursework.
+              </p>
+<ul class="text-xs font-mono text-slate-400 space-y-2 mb-6">
+<li class="flex items-center gap-2"><span class="text-cyanGlow">✓</span> Clean Python Code with Markdown Documentation</li>
+<li class="flex items-center gap-2"><span class="text-cyanGlow">✓</span> Pre-labeled Agricultural Pest Image Dataset</li>
+<li class="flex items-center gap-2"><span class="text-cyanGlow">✓</span> Instant Google Drive Access &amp; Support Notes</li>
+</ul>
+</div>
+<a class="w-full text-center px-6 py-3 rounded-full bg-cyanGlow/10 border border-cyanGlow text-cyanGlow font-mono text-xs uppercase tracking-wider hover:bg-cyanGlow hover:text-space-950 transition-all duration-300" href="https://wa.me/?text=Hi%20Juhairi,%20I'm%20interested%20in%20the%20CNN%20Pest%20Dataset%20Codebase" rel="noopener noreferrer" target="_blank">
+              Inquire / Purchase via WhatsApp
+            </a>
+</div>
+<!-- Service Card: Keynote Speaking & Content Collaboration -->
+<div class="glass-panel p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-mono px-3 py-1 rounded-full bg-cyanGlow/10 text-cyanGlow border border-cyanGlow/20">TALKS &amp; CAMPAIGNS</span>
+<span class="font-mono text-xs text-slate-400">CUSTOM SCOPE</span>
+</div>
+<h3 class="text-2xl font-display font-bold text-white mb-3">Tech Keynote, Workshop &amp; Brand Partnership</h3>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 font-sans">
+                Delivering high-energy tech sessions on IT Project Management, Edu Tech content mastery, and beginner coding tracks. Open for university seminars, tech conferences, and sponsored tech creator campaigns.
+              </p>
+<ul class="text-xs font-mono text-slate-400 space-y-2 mb-6">
+<li class="flex items-center gap-2"><span class="text-cyanGlow">✓</span> Keynote Speaking &amp; Interactive Workshop Facilitation</li>
+<li class="flex items-center gap-2"><span class="text-cyanGlow">✓</span> Tech Product Promotion (36.9K+ Followers Multi-platform)</li>
+<li class="flex items-center gap-2"><span class="text-cyanGlow">✓</span> Tech Hackathon / Event MC &amp; Moderation</li>
+</ul>
+</div>
+<a class="w-full text-center px-6 py-3 rounded-full bg-white text-space-950 font-display font-medium text-xs uppercase tracking-wider hover:bg-cyanGlow transition-all duration-300" href="#contact">
+              Book Speaking / Creator Slot
+            </a>
+</div>
+</div>
+</section>
+<!-- END: DigitalProductsAndServices -->
+<!-- BEGIN: TestimonialSection -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+<div class="glass-panel-glow rounded-3xl p-8 sm:p-12 relative text-center">
+<div class="w-12 h-12 rounded-full bg-cyanGlow/10 border border-cyanGlow/20 mx-auto mb-6 flex items-center justify-center text-cyanGlow">
+<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+</svg>
+</div>
+<blockquote class="text-base sm:text-xl font-display font-medium text-white leading-relaxed mb-6">
+            “Juhairi is a rare hybrid talent. He possesses both the technical precision to decode complex algorithms and the charismatic leadership required to coordinate mission-critical enterprise deadlines. His energy inspires every team he touches.”
+          </blockquote>
+<div>
+<div class="font-display font-bold text-white text-sm">Abi Farhan</div>
+<div class="font-mono text-xs text-cyanGlow">Founder &amp; CEO, Abi Coffee</div>
+</div>
+</div>
+</section>
+<!-- END: TestimonialSection -->
+<!-- BEGIN: ContactSection -->
+<section class="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center" id="contact">
+<div class="glass-panel rounded-3xl p-8 sm:p-14 border border-white/15 relative overflow-hidden">
+<div class="text-xs font-mono tracking-widest text-cyanGlow uppercase mb-3">// 07. TRANSMISSION TERMINAL</div>
+<h2 class="text-3xl sm:text-5xl font-display font-bold text-white tracking-tight mb-4">
+            Ready to build something extraordinary?
+          </h2>
+<p class="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mb-10 font-sans">
+            Whether you are looking for an enterprise Project Management Officer, a keynote speaker for your tech summit, or a content partnership — my inbox is open.
+          </p>
+<!-- Communication Channels -->
+<div class="flex flex-wrap justify-center gap-4 mb-10">
+<a class="px-6 py-3 rounded-full bg-white text-space-950 font-display font-semibold text-xs tracking-wide hover:bg-cyanGlow transition-all duration-300 flex items-center gap-2" href="mailto:juhairiqushay1548@email.com">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              juhairiqushay1548@email.com
+            </a>
+<a class="px-6 py-3 rounded-full glass-panel text-white font-mono text-xs tracking-wider border border-white/20 hover:border-cyanGlow hover:text-cyanGlow transition-all duration-300 flex items-center gap-2" href="https://linkedin.com" rel="noopener noreferrer" target="_blank">
+              LinkedIn Profile <span>↗</span>
+</a>
+<a class="px-6 py-3 rounded-full glass-panel text-white font-mono text-xs tracking-wider border border-white/20 hover:border-cyanGlow hover:text-cyanGlow transition-all duration-300 flex items-center gap-2" href="https://instagram.com/luthfieta" rel="noopener noreferrer" target="_blank">
+              Instagram @luthfieta <span>↗</span>
+</a>
+</div>
+<div class="font-mono text-xs text-slate-500">
+            STATUS: ACTVELY ACCEPTING SELECT PROJECTS FOR 2026 / 2027
+          </div>
+</div>
+</section>
+<!-- END: ContactSection -->
+</main>
+<!-- BEGIN: MainFooter -->
+<footer class="border-t border-white/10 py-10 px-4 sm:px-8 mt-auto relative z-10 glass-panel">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+<div>
+<span class="font-display font-bold text-white tracking-widest text-sm">JUHAIRI QUSHAY</span>
+<p class="font-mono text-xs text-slate-500 mt-1">ENGINEERED WITH CLEAN CODE · DARK SCI-FI EDITION</p>
+</div>
+<div class="font-mono text-xs text-slate-400">
+          © 2026 JUHAIRI QUSHAY. ALL RIGHTS RESERVED.
+        </div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</div>
+<!-- Starfield Canvas Animation Script -->
+<script data-purpose="canvas-setup">
+    (function () {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const numStars = 110;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function initStars() {
+        stars = [];
+        for (let i = 0; i < numStars; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1.2 + 0.2,
+            opacity: Math.random() * 0.7 + 0.2,
+            speed: Math.random() * 0.15 + 0.05
+          });
+        }
+      }
+
+      function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < stars.length; i++) {
+          const s = stars[i];
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 235, 255, ${s.opacity})`;
+          ctx.fill();
+
+          s.y += s.speed;
+          if (s.y > canvas.height) {
+            s.y = 0;
+            s.x = Math.random() * canvas.width;
+          }
+        }
+        requestAnimationFrame(drawStars);
+      }
+
+      window.addEventListener('resize', () => {
+        resizeCanvas();
+        initStars();
+      });
+
+      resizeCanvas();
+      initStars();
+      drawStars();
+    })();
+  </script>
+<!-- Navigation Scroll Effect Script -->
+<script data-purpose="event-handlers">
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('main-nav');
+      if (window.scrollY > 40) {
+        nav.classList.add('bg-space-950/80', 'backdrop-blur-md', 'py-3');
+        nav.classList.remove('py-5');
+      } else {
+        nav.classList.remove('bg-space-950/80', 'backdrop-blur-md', 'py-3');
+        nav.classList.add('py-5');
+      }
+    });
+  </script>
+
+
+</body></html>

@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  --color-space-950: #030508;
+  --color-space-900: #070a10;
+  --color-space-850: #0b1019;
+  --color-space-800: #111724;
+  --color-space-700: #1a2336;
+  --color-cyanGlow: #00e5ff;
+  --color-neonViolet: #8a2be2;
+  --color-electricBlue: #2979ff;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@layer base {
+  html {
+    background-color: #030508;
+    color: #e2e8f0;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #030508;
+    color: #e2e8f0;
+    overflow-x: hidden;
+    font-family: var(--font-sans);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+.hero-space-glow {
+  background: radial-gradient(
+    ellipse 80% 50% at 50% -10%,
+    rgba(0, 229, 255, 0.15),
+    rgba(3, 5, 8, 0) 70%
+  );
+}
+
+.bg-radial-vignette {
+  background: radial-gradient(
+    circle at 50% 20%,
+    rgba(0, 229, 255, 0.08) 0%,
+    rgba(138, 43, 226, 0.04) 45%,
+    rgba(3, 5, 8, 1) 85%
+  );
+}
+
+.glass-panel {
+  background: rgba(13, 17, 26, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-interactive:hover {
+  border-color: rgba(0, 229, 255, 0.38);
+  box-shadow: 0 0 35px -8px rgba(0, 229, 255, 0.22);
+}
+
+.glass-panel-glow {
+  background: rgba(13, 17, 26, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 229, 255, 0.22);
+  box-shadow: 0 0 25px -8px rgba(0, 229, 255, 0.18);
+}
+
+.tech-grid-bg {
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+}
+
+/* Custom subtle corner brackets for focal sci-fi cards */
+.hud-brackets {
+  position: relative;
+}
+
+.hud-brackets::before,
+.hud-brackets::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.hud-brackets::before {
+  top: 10px;
+  left: 10px;
+  border-top: 1px solid rgba(0, 229, 255, 0.55);
+  border-left: 1px solid rgba(0, 229, 255, 0.55);
+}
+
+.hud-brackets::after {
+  bottom: 10px;
+  right: 10px;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.55);
+  border-right: 1px solid rgba(0, 229, 255, 0.55);
+}
+
+.hud-brackets:hover::before,
+.hud-brackets:hover::after,
+.hud-brackets-active::before,
+.hud-brackets-active::after {
+  opacity: 1;
+}
